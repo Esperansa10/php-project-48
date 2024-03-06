@@ -2,3 +2,49 @@
 
 <?php
 
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
+use MyApp\Cli; 
+use MyApp\Differ; 
+
+
+$pathToFile1 = json_decode(
+    ' {
+     "host": "hexlet.io",
+     "timeout": 50,
+     "proxy": "123.234.53.22",
+     "follow": false
+   }'
+ );
+   
+ $pathToFile2 = json_decode(
+     '{
+     "timeout": 20,
+     "verbose": true,
+     "host": "hexlet.io"
+   }'); 
+
+
+// 1. нужно находить общий ключ
+// 2. сравнивать значение этого ключа
+// если значение совпадает выводить найденное значение + ключ
+// если значения у кого то нет, то выводить ключ + значение со знаком -
+// если оба значения есть то выводить ключ-значение со знаками + и -
+
+// Cli\printHelp(); 
+Differ\genDiff($pathToFile1, $pathToFile2);
+
+
+//{
+//   - follow: false
+//     host: hexlet.io
+//   - proxy: 123.234.53.22
+//   - timeout: 50
+//   + timeout: 20
+//   + verbose: true
+// }
