@@ -13,38 +13,11 @@ use MyApp\Cli;
 use MyApp\Differ; 
 
 
-$pathToFile1 = json_decode(
-    ' {
-     "host": "hexlet.io",
-     "timeout": 50,
-     "proxy": "123.234.53.22",
-     "follow": false
-   }'
- );
+$pathToFile1 = file_get_contents('file1.json'); 
    
- $pathToFile2 = json_decode(
-     '{
-     "timeout": 20,
-     "verbose": true,
-     "host": "hexlet.io"
-   }'); 
+ $pathToFile2 = file_get_contents('file2.json');
 
 
-// 1. нужно находить общий ключ
-// 2. сравнивать значение этого ключа
-// если значение совпадает выводить найденное значение + ключ
-// если значения у кого то нет, то выводить ключ + значение со знаком -
-// если оба значения есть то выводить ключ-значение со знаками + и -
-
-// Cli\printHelp(); 
 Differ\genDiff($pathToFile1, $pathToFile2);
 
 
-//{
-//   - follow: false
-//     host: hexlet.io
-//   - proxy: 123.234.53.22
-//   - timeout: 50
-//   + timeout: 20
-//   + verbose: true
-// }

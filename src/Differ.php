@@ -6,8 +6,29 @@ namespace MyApp\Differ;
 
 function genDiff($pathToFile1, $pathToFile2) {
 
-$diff = []; //сюда складываем разницу
+  $arr1 = json_decode($pathToFile1); 
+  $arr2 = json_decode($pathToFile2); 
+  
+  // array_key_exists
 
+foreach($arr1 as $key => $value) {
+  if (array_key_exists($key, $arr2)) {
+    $key;
+  }
+
+
+}
+
+
+
+
+die; 
+
+
+
+
+
+$diff = []; //сюда складываем разницу
 
 $keyset1 = get_object_vars($pathToFile1);  //получили ключи от 1 файла
 $keyset2 = get_object_vars($pathToFile2); //получили ключи от 2 файла
