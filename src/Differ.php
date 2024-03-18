@@ -2,18 +2,23 @@
 
 namespace MyApp\Differ; 
 
+function genDiff($file1, $file2) {
 
-
-function genDiff($pathToFile1, $pathToFile2) {
-
-  $arr1 = json_decode($pathToFile1); 
-  $arr2 = json_decode($pathToFile2); 
+  $arr1 = json_decode($file1, true); 
+  $arr2 = json_decode($file2, true); 
   
-  // array_key_exists
-
+  
 foreach($arr1 as $key => $value) {
-  if (array_key_exists($key, $arr2)) {
-    $key;
+  if (array_key_exists($key, $arr2)) { 
+    if ($arr1[$key] === $arr2[$key]) {
+      echo $key . ': ' . $arr1[$key] ; 
+    }
+
+    else {
+      echo '-' . $key. ': ' . $arr1[$key];
+      echo'+' . $key. ': ' . $arr2[$key];
+    }
+  
   }
 
 

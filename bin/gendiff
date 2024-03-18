@@ -13,11 +13,11 @@ use MyApp\Cli;
 use MyApp\Differ; 
 
 
-$pathToFile1 = file_get_contents('file1.json'); 
+$file1 = file_get_contents('file1.json'); 
    
- $pathToFile2 = file_get_contents('file2.json');
+$file2 = file_get_contents('file2.json');
 
 
-Differ\genDiff($pathToFile1, $pathToFile2);
+Differ\genDiff($file1, $file2);
 
 
