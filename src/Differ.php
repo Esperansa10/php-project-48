@@ -4,15 +4,11 @@ namespace MyApp\Differ;
 
 function genDiff($file1, $file2) {
 
-  $key = ''; 
-  $value = ''; 
-  $compare = ''; 
+  // $key = ''; 
+  // $value = ''; 
+  // $compare = ''; 
 
-  $result[] = [
-    'key' => $key,
-    'value' => $value,
-    'compare' => $compare
-  ]; ; 
+  $result = []; 
 
   $arr1 = json_decode($file1, true); 
   $arr2 = json_decode($file2, true); 
