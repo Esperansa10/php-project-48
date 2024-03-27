@@ -4,10 +4,6 @@ namespace MyApp\Differ;
 
 function genDiff($file1, $file2) {
 
-  // $key = ''; 
-  // $value = ''; 
-  // $compare = ''; 
-
   $result = []; 
 
   $arr1 = json_decode($file1, true); 
@@ -34,10 +30,7 @@ foreach($arr1 as $key => $value) {
         'value' => $value, 
         'compare' => '-']; 
 
-        $result[] = [
-          'key' => $key, 
-          'value' => $value, 
-          'compare' => '+']; 
+  
      
     } 
 
@@ -70,6 +63,25 @@ foreach($arr1 as $key => $value) {
 }
 
 foreach($arr2 as $key => $value) {
+
+  //---
+  if (array_key_exists($key, $arr1)) { 
+    
+    if ($arr2[$key] === $arr1[$key]) {
+      
+    }
+    else {
+
+      $result[] = [
+        'key' => $key, 
+        'value' => $value, 
+        'compare' => '+']; 
+     
+    } 
+  }
+  //---
+
+
   if (!array_key_exists($key, $arr1)) {
     if($arr2[$key] === true) {
 
@@ -88,11 +100,26 @@ foreach($arr2 as $key => $value) {
   
   
   }
+
+  
   }
   
 }
 
+array_multisort(
+  $result,
+  SORT_ASC,
+  SORT_REGULAR,
+  
+); 
 
-// ksort($result['key']);
-print_r($result); 
+//---
+function convert_multi_array($result) {
+  $out = implode("\n", array_map(function($a) {return implode(": ",$a);}, $result));
+  print_r($out);
+}
+convert_multi_array($result) ; 
+//---
+// print_r($result); 
+
 }
