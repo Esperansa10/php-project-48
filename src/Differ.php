@@ -17,7 +17,6 @@ function genDiff($file1, $file2)
 
       if ($arr1[$key] === $arr2[$key]) {
 
-
         $result[] = [
           'key' => $key,
           'value' => $value,
@@ -27,33 +26,20 @@ function genDiff($file1, $file2)
 
         $result[] = [
           'key' => $key,
-          'value' => $value,
+          'value' => $arr1[$key],
           'compare' => '-'
+        ];
+
+        $result[] = [
+          'key' => $key,
+          'value' => $arr2[$key],
+          'compare' => '+'
         ];
       }
     } else {
-
-      //---
-      // if ($arr1[$key] === false) {
-
-      //   $result[] = [
-      //     'key' => $key,
-      //     'value' => 'false',
-      //     'compare' => '-'
-      //   ];
-      // } else {
-
-
-      //   $result[] = [
-      //     'key' => $key,
-      //     'value' => $value,
-      //     'compare' => '-'
-      //   ];
-      // }
-       //---
-       $result[] = [
+      $result[] = [
         'key' => $key,
-        'value' => $value,  //false не выводится
+        'value' => $value,  //false не выводится, но это ок
         'compare' => '-'
       ];
     }
@@ -61,49 +47,17 @@ function genDiff($file1, $file2)
 
   foreach ($arr2 as $key => $value) {
 
-    //---
-    if (array_key_exists($key, $arr1)) {
-
-      if ($arr2[$key] === $arr1[$key]) {
-      } else {
-
-        $result[] = [
-          'key' => $key,
-          'value' => $value,
-          'compare' => '+'
-        ];
-      }
-    }
-    //---
-
-
     if (!array_key_exists($key, $arr1)) {
-      //--
-      // if ($arr2[$key] === true) {
 
-      //   $result[] = [
-      //     'key' => $key,
-      //     'value' => 'true',
-      //     'compare' => '+'
-      //   ];
-      // } else {
-      //   $result[] = [
-      //     'key' => $key,
-      //     'value' => $value,
-      //     'compare' => ''
-      //   ];
-      // }
-      //-
       $result[] = [
         'key' => $key,
-        'value' => $value, // true не выводится в $value
+        'value' => $value, // true не выводится в $value, но это ок
         'compare' => ''
       ];
     }
   }
 
-  
 
-  print_r($result); 
 
+  print_r($result);
 }
