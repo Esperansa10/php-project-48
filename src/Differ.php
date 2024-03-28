@@ -57,7 +57,11 @@ function genDiff($file1, $file2)
     }
   }
 
-
+  array_multisort(
+    $result,
+    SORT_ASC,
+    SORT_REGULAR,
+  ); 
 
   print_r($result);
 }
