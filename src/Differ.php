@@ -63,5 +63,11 @@ function genDiff($file1, $file2)
     SORT_REGULAR,
   ); 
 
-  print_r($result);
+  foreach  ($result as $arr) { // заходим в массив разбираем по внутр. массивам
+  echo $arr['compare'] . ' ';
+  echo $arr['key'] . ': ';  
+  echo $arr['value'];
+  echo PHP_EOL;
+  }
+  
 }
