@@ -20,7 +20,7 @@ function genDiff($file1, $file2)
         $result[] = [
           'key' => $key,
           'value' => $value,
-          'compare' => ''
+          'compare' => ' '
         ];
       } else {
 
@@ -52,7 +52,7 @@ function genDiff($file1, $file2)
       $result[] = [
         'key' => $key,
         'value' => $value, // true не выводится в $value, но это ок
-        'compare' => ''
+        'compare' => '+'
       ];
     }
   }
@@ -63,11 +63,23 @@ function genDiff($file1, $file2)
     SORT_REGULAR,
   ); 
 
-  foreach  ($result as $arr) { // заходим в массив разбираем по внутр. массивам
-  echo $arr['compare'] . ' ';
-  echo $arr['key'] . ': ';  
-  echo $arr['value'];
-  echo PHP_EOL;
-  }
+//   echo "{ \n"; 
+//   foreach  ($result as $arr) { 
+//   echo $arr['compare'] . ' ';
+//   echo $arr['key'] . ': ';  
+//   echo $arr['value'];
+//   echo PHP_EOL ;
+//   }
+//   echo "}"; 
+// }
+
+  foreach  ($result as $arr) { 
+  $compare = $arr['compare'] . ' ';
+  $key = $arr['key'] . ': ';  
+  $value = $arr['value']; 
+  $diff[] = $compare . $key . $value; 
+};
   
-}
+$diff = implode("\n", $diff); 
+  print_r("{ \n" . $diff. "\n}"); 
+  }
