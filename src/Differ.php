@@ -57,21 +57,15 @@ function genDiff($file1, $file2)
     }
   }
 
-  array_multisort(
-    $result,
-    SORT_ASC,
-    SORT_REGULAR,
-  ); 
 
-//   echo "{ \n"; 
-//   foreach  ($result as $arr) { 
-//   echo $arr['compare'] . ' ';
-//   echo $arr['key'] . ': ';  
-//   echo $arr['value'];
-//   echo PHP_EOL ;
-//   }
-//   echo "}"; 
-// }
+usort($result, function($a, $b) {
+  if ($a['key'] == $b['key']) {
+    return 0;
+}
+return ($a['key'] < $b['key']) ? -1 : 1;
+}
+
+);  
 
   foreach  ($result as $arr) { 
   $compare = $arr['compare'] . ' ';
