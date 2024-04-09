@@ -1,9 +1,11 @@
 <?php
 
-namespace MyApp\Cli; 
-use Docopt; 
+namespace MyApp\Cli;
 
-function printHelp() {
+use Docopt;
+
+function printHelp()
+{
     $doc = <<<DOC
     Generate diff
 
@@ -17,10 +19,9 @@ function printHelp() {
       -v --version                  Show version
       --format <fmt>                Report format [default: stylish]
     DOC;
-    
-    $args = Docopt::handle($doc, ['version'=>'Gendiff 1.0.', 'help'=>true]); 
-    foreach ($args as $k=>$v)
-    echo $k.': '.json_encode($v).PHP_EOL;
+
+    $args = Docopt::handle($doc, ['version' => 'Gendiff 1.0.', 'help' => true]);
+    foreach ($args as $k => $v) {
+        echo $k . ': ' . json_encode($v) . PHP_EOL;
+    }
 }
-
-
