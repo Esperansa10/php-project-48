@@ -2,9 +2,12 @@
 
 namespace MyApp\Differ;
 
-function genDiff($file1, $file2)
+function genDiff($file1Path, $file2Path, $format = 'stylish')
 {
 
+    $file1 = file_get_contents($file1Path);    
+    $file2 = file_get_contents($file2Path);
+    
     $result = [];
 
     $arr1 = json_decode($file1, true);
@@ -67,5 +70,7 @@ function genDiff($file1, $file2)
     };
 
     $diff = implode("\n", $diff);
-    print_r("{ \n" . $diff . "\n}");
+    $result = "{ \n" . $diff . "\n}";
+    print_r($result); 
+    return $result;
 }

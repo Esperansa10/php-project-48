@@ -1,6 +1,6 @@
 <?php
 
-namespace MyApp\Differ;
+namespace MyApp\DifferCopy;
 
 function genDiff($file1, $file2)
 {

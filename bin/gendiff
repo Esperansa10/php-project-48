@@ -9,15 +9,40 @@ if (file_exists($autoloadPath1)) {
 } else {
     require_once $autoloadPath2;
 }
-use MyApp\Cli; 
-use MyApp\Differ; 
+use MyApp\Differ;
 
 
-$file1 = file_get_contents('file1.json'); 
-   
-$file2 = file_get_contents('file2.json');
+function getArguments()
+{
+    $doc = <<<DOC
+    Generate diff
+
+    Usage:
+      gendiff (-h|--help)
+      gendiff (-v|--version)
+      gendiff [--format <fmt>] <firstFile> <secondFile>
+    
+    Options:
+      -h --help                     Show this screen
+      -v --version                  Show version
+      --format <fmt>                Report format [default: stylish]
+    DOC;
+
+    $args = Docopt::handle($doc, ['version' => 'Gendiff 1.0.', 'help' => true]);
+    
+    return [
+      'firstFile'=>$args['<firstFile>'], 
+      'secondFile'=>$args['<secondFile>'], 
+      'format'=>$args['--format']
+
+      ] ;
+
+} 
+
+$arguments = getArguments();
+
+Differ\genDiff($arguments['firstFile'], $arguments['secondFile'], $arguments['format']);
 
 
-Differ\genDiff($file1, $file2);
 
 
