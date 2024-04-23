@@ -1,18 +1,42 @@
 <?php
 
 namespace MyApp\Differ;
+use MyApp\Parsers; 
+
+
+function getFileData($filePath) {
+    $content = file_get_contents($filePath);
+    // pathinfo($filePath); //получает расширение
+    $format = pathinfo($filePath)['extension']; 
+    
+    return [
+        'content' => $content, 
+        'format' => $format
+    ];
+}
 
 function genDiff($file1Path, $file2Path, $format = 'stylish')
 {
 
-    $file1 = file_get_contents($file1Path);
-    $file2 = file_get_contents($file2Path);
+ $result = [];
 
-    $result = [];
+   $fileData = getFileData($file1Path); 
 
-    $arr1 = json_decode($file1, true);
-    $arr2 = json_decode($file2, true);
+//    print_r($fileData['format']); 
+//    die; 
 
+   $file1content = $fileData['content']; 
+   $file1format =  $fileData['format']; 
+
+   $fileData = getFileData($file2Path); 
+   $file2content = $fileData['content']; 
+   $file2format =  $fileData['format']; 
+
+   $arr1 = Parsers\parse($file1content, $file1format); 
+   $arr2 = Parsers\parse($file2content, $file2format); 
+   
+//    print_r($arr1); 
+//    die; 
 
     foreach ($arr1 as $key => $value) {
         if (array_key_exists($key, $arr2)) {
