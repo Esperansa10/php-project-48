@@ -23,4 +23,6 @@ class DifferTest extends TestCase
 
         $this->assertStringEqualsFile($expected, genDiff($file1, $file2));
     }
+
+    
 }
