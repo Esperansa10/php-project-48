@@ -1,7 +1,8 @@
 <?php
 
 namespace MyApp\Parsers;
-use Symfony\Component\Yaml; 
+
+use Symfony\Component\Yaml\Yaml;
 
 function parse($file, $fileFormat){
 
