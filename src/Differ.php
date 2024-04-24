@@ -1,16 +1,17 @@
 <?php
 
 namespace MyApp\Differ;
-use MyApp\Parsers; 
 
+use MyApp\Parsers;
 
-function getFileData($filePath) {
+function getFileData($filePath)
+{
     $content = file_get_contents($filePath);
     // pathinfo($filePath); //получает расширение
-    $format = pathinfo($filePath)['extension']; 
-    
+    $format = pathinfo($filePath)['extension'];
+
     return [
-        'content' => $content, 
+        'content' => $content,
         'format' => $format
     ];
 }
@@ -18,25 +19,23 @@ function getFileData($filePath) {
 function genDiff($file1Path, $file2Path, $format = 'stylish')
 {
 
- $result = [];
+    $result = [];
 
-   $fileData = getFileData($file1Path); 
+    $fileData = getFileData($file1Path);
+    $file1content = $fileData['content'];
+    $file1format =  $fileData['format'];
 
-//    print_r($fileData['format']); 
-//    die; 
+    $fileData = getFileData($file2Path);
+    $file2content = $fileData['content'];
+    $file2format =  $fileData['format'];
 
-   $file1content = $fileData['content']; 
-   $file1format =  $fileData['format']; 
+ 
+    $arr1 = Parsers\parse($file1content, $file1format);
+    $arr2 = Parsers\parse($file2content, $file2format);   
+    // print_r($arr2); 
+    // die; 
 
-   $fileData = getFileData($file2Path); 
-   $file2content = $fileData['content']; 
-   $file2format =  $fileData['format']; 
-
-   $arr1 = Parsers\parse($file1content, $file1format); 
-   $arr2 = Parsers\parse($file2content, $file2format); 
    
-//    print_r($arr1); 
-//    die; 
 
     foreach ($arr1 as $key => $value) {
         if (array_key_exists($key, $arr2)) {
