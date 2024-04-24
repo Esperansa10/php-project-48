@@ -29,13 +29,13 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
     $file2content = $fileData['content'];
     $file2format =  $fileData['format'];
 
- 
-    $arr1 = Parsers\parse($file1content, $file1format);
-    $arr2 = Parsers\parse($file2content, $file2format);   
-    // print_r($arr2); 
-    // die; 
 
-   
+    $arr1 = Parsers\parse($file1content, $file1format);
+    $arr2 = Parsers\parse($file2content, $file2format);
+    // print_r($arr2);
+    // die;
+
+
 
     foreach ($arr1 as $key => $value) {
         if (array_key_exists($key, $arr2)) {

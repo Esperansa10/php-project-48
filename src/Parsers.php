@@ -11,10 +11,9 @@ function parse($file, $fileFormat)
         $arr1 = json_decode($file, true);
     } elseif ($fileFormat === 'yml' or $fileFormat === 'yaml') {
         $arr1 = Yaml::parse($file, Yaml::PARSE_OBJECT_FOR_MAP);
-        // print_r($arr1); 
-        // die; 
+        // print_r($arr1);
+        // die;
         $arr1 = json_decode(json_encode($arr1), true);
-        
     } else {
         $arr1 = ['неизвестный формат '];
     }
