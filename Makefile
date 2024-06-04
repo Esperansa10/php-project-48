@@ -31,3 +31,7 @@ gendiff-json:
 gendiff-yaml: 
 	bin/gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml
 
+gendiff-jsonrec: 
+	bin/gendiff tests/fixtures/file1rec.yml tests/fixtures/file2rec.yml
+	
+

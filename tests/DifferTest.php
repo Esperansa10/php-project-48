@@ -24,6 +24,19 @@ class DifferTest extends TestCase
 
         $this->assertStringEqualsFile($expected, genDiff($file1, $file2));
     } 
+
+    // public function testJsonrec(): void
+    // {
+    //     // Сначала идет ожидаемое значение (expected)
+    //     // И только потом актуальное (actual)
+    //     $fixturesPath = __DIR__ . '/fixtures' ; 
+    //     $file1 = $fixturesPath . '/file1nested.json'; 
+    //     $file2 = $fixturesPath . '/file2nested.json'; 
+    //     $expected = $fixturesPath . '/expectedrec.txt'; 
+
+    //     $this->assertStringEqualsFile($expected, genDiff($file1, $file2));
+    // } 
+    
     
     public function testYaml(): void
     {
@@ -36,6 +49,8 @@ class DifferTest extends TestCase
 
         $this->assertStringEqualsFile($expected, genDiff($file1, $file2));
     }
+
+    
 
     
 }

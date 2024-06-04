@@ -3,6 +3,7 @@
 namespace MyApp\Differ;
 
 use MyApp\Parsers;
+use MyApp\Formatter;
 
 function getFileData($filePath)
 {
@@ -35,7 +36,7 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
     // print_r($arr2);
     // die;
 
-
+  
 
     foreach ($arr1 as $key => $value) {
         if (array_key_exists($key, $arr2)) {
@@ -43,26 +44,26 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
                 $result[] = [
                 'key' => $key,
                 'value' => $value,
-                'compare' => ' '
+                'compare' => 'unchanged'
                 ];
             } else {
                 $result[] = [
                 'key' => $key,
                 'value' => $arr1[$key],
-                'compare' => '-'
+                'compare' => 'deleted'
                 ];
 
                 $result[] = [
                 'key' => $key,
                 'value' => $arr2[$key],
-                'compare' => '+'
+                'compare' => 'added'
                 ];
             }
         } else {
             $result[] = [
             'key' => $key,
             'value' => $value,  //false не выводится, но это ок
-            'compare' => '-'
+            'compare' => 'deleted'
             ];
         }
     }
@@ -72,7 +73,7 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
             $result[] = [
             'key' => $key,
             'value' => $value, // true не выводится в $value, но это ок
-            'compare' => '+'
+            'compare' => 'added'
             ];
         }
     }
@@ -85,15 +86,8 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
         return ($a['key'] < $b['key']) ? -1 : 1;
     });
 
-    foreach ($result as $arr) {
-        $compare = $arr['compare'] . ' ';
-        $key = $arr['key'] . ': ';
-        $value = $arr['value'];
-        $diff[] = $compare . $key . $value;
-    };
+    return Formatter\format($result); 
 
-    $diff = implode("\n", $diff);
-    $result = "{ \n" . $diff . "\n}";
-    print_r($result);
-    return $result;
+
+    
 }
