@@ -86,7 +86,7 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
         return ($a['key'] < $b['key']) ? -1 : 1;
     });
 
-    return Formatter\format($result); 
+    return Formatter\format($result, $format); 
 
 
     
