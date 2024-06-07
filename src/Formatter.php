@@ -22,11 +22,13 @@ function format($result, $format)
             $value = $arr['value'];
             $diff[] = ' '. $compare . ' ' . $key . $value;
         };
-    }
-    
 
     $diff = implode("\n", $diff);
     $result = "{ \n" . $diff . "\n}";
+
+    } else { $result = 'format no stylish';  }
     
+    // print_r($result);
+    // die; 
     return $result;
 }

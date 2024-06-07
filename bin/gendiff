@@ -41,7 +41,7 @@ function getArguments()
 
 $arguments = getArguments();
 
-Differ\genDiff($arguments['firstFile'], $arguments['secondFile'], $arguments['format']);
+print_r(Differ\genDiff($arguments['firstFile'], $arguments['secondFile'], $arguments['format']));
 
 
 
