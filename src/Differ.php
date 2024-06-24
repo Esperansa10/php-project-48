@@ -4,6 +4,7 @@ namespace MyApp\Differ;
 
 use MyApp\Parsers;
 use MyApp\Formatter;
+use function Functional\sort;
 
 function getFileData($filePath)
 {
@@ -30,93 +31,71 @@ function genDiff($file1Path, $file2Path, $format = 'stylish')
     $file2content = $fileData['content'];
     $file2format =  $fileData['format'];
 
-    
+
     $arr1 = Parsers\parse($file1content, $file1format);
     $arr2 = Parsers\parse($file2content, $file2format);
+    // dd($arr2);
+    // die;
 
+    $result = recurcion($arr1, $arr2);
+    return Formatter\format($result, $format);
+};
+
+function recurcion($arr1, $arr2)
+{
+
+    $commonKeys = array_unique(array_merge(array_keys($arr1), array_keys($arr2)));
+
+    $commonKeys = sort($commonKeys, fn ($left, $right) => strcmp($left, $right));
     
 
-    if (!is_array($arr1)) {
-        print_r($arr1); 
-        die; 
+    $result = array_map(function ($key) use ($arr1, $arr2) {
+ 
+        $value1 = $arr1[$key] ?? null;
+        $value2 = $arr2[$key] ?? null;
 
-    }
-
-    if (!is_array($arr2)) {
-        print_r($arr2); 
-        die; 
-
-    }
-
-    // перебираем первый массив
-    foreach ($arr1 as $key => $value) {
-        // если $value массив а не значение
-        if(is_array($value)) {
-          // если значение массив, надо в него зайти и перебрать также как массив первого уровня
-          genDiff($value, $arr2[$key]); 
-            }
         
-        if (array_key_exists($key, $arr2)) {
-            if ($arr1[$key] === $arr2[$key]) {
-                $result[] = [
+        if (is_array($value1) && is_array($value2)) {
+
+            return [
+                    'key' => $key,
+                    'value' => recurcion($value1, $value2),
+
+                    'compare' => 'children' 
+                  ]; 
+                
+                }
+
+        if ($value2 === null) {
+            return [
                 'key' => $key,
-                'value' => $value,
-                'compare' => 'unchanged'
-                ];
-            } else {
-                $result[] = [
-                'key' => $key,
-                'value' => $arr1[$key],
+                'value' => $value1,
                 'compare' => 'deleted'
-                ];
+            ];
+        }
 
-                $result[] = [
+        if ($value1 === null) {
+            return [
                 'key' => $key,
-                'value' => $arr2[$key],
+                'value' => $value2,
                 'compare' => 'added'
-                ];
-            }
-        } else {
-            $result[] = [
-            'key' => $key,
-            'value' => $value,  //false не выводится, но это ок
-            'compare' => 'deleted'
             ];
         }
-    }
 
-    // перебираем второй массив
-    foreach ($arr2 as $key => $value) {
-       
-            // если $value массив а не значение
-            if(is_array($value)) {
-              // если значение массив, надо в него зайти и перебрать также как массив первого уровня
-              genDiff($value, $arr1[$key]); 
-            }
-
-
-        if (!array_key_exists($key, $arr1)) {
-            $result[] = [
-            'key' => $key,
-            'value' => $value, // true не выводится в $value, но это ок
-            'compare' => 'added'
+        if ($value1 === $value2) {
+            return [
+                'key' => $key,
+                'value' => $value1,
+                'compare' => 'unchanged'
             ];
         }
-    }
+        return [
+            'key' => $key,
+            'value1' => $value1,
+            'value2' => $value2,
+            'compare' => 'changed'
+        ];
+    }, $commonKeys);
 
-
-    usort($result, function ($a, $b) {
-        if ($a['key'] == $b['key']) {
-            return 0;
-        }
-        return ($a['key'] < $b['key']) ? -1 : 1;
-    });
-
-    return Formatter\format($result, $format); 
-    
-}
-
-
-function differ($arr1, $arr2, $format = 'stylish') {
-return 'hi'; 
+    return $result;
 }
