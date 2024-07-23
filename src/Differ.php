@@ -45,7 +45,7 @@ function recurcion($arr1, $arr2)
 {
 
     $commonKeys = array_unique(array_merge(array_keys($arr1), array_keys($arr2)));
-
+    
     $commonKeys = sort($commonKeys, fn ($left, $right) => strcmp($left, $right));
     
 
@@ -60,13 +60,12 @@ function recurcion($arr1, $arr2)
             return [
                     'key' => $key,
                     'value' => recurcion($value1, $value2),
-
                     'compare' => 'children' 
                   ]; 
                 
                 }
 
-        if ($value2 === null) {
+        if (!array_key_exists($key, $arr2)) {
             return [
                 'key' => $key,
                 'value' => $value1,
@@ -74,7 +73,7 @@ function recurcion($arr1, $arr2)
             ];
         }
 
-        if ($value1 === null) {
+        if (!array_key_exists($key, $arr1)) {
             return [
                 'key' => $key,
                 'value' => $value2,
