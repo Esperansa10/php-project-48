@@ -112,9 +112,9 @@ function stringify(mixed $value, $depth): string
 
 function stringifyiter(mixed $value, int $depth): string
 {
-    if (!is_array($value)) {
-        return toString($value);
-    }
+    // if (!is_array($value)) {
+    //     return toString($value);
+    // }
 
     $indentSize = $depth * INDENT_COUNT;
     $indentValue = str_repeat(INDENT_SYMBOL, $indentSize);
