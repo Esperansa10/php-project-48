@@ -18,7 +18,7 @@ function getFileData($filePath)
     ];
 }
 
-function genDiff($file1Path, $file2Path, $format = 'stylish')
+function genDiff($file1Path, $file2Path, $format = 'stylish') : string
 {
 
     $result = [];

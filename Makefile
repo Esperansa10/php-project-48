@@ -26,15 +26,14 @@ test-coverage-html:
 	XDEBUG_MODE=coverage composer exec --verbose phpunit tests -- --coverage-html build/coverage
 
 gendiff-json: 
-	bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json
+	bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json --format plain
 
 gendiff-yaml: 
 	bin/gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml
 
 gendiff-jsonrec: 
 	bin/gendiff tests/fixtures/file1nested.json tests/fixtures/file2nested.json
-
-gendiff-json-noformat: 
-	bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json --format nostylish
 	
+gendiff-plain: 
+	bin/gendiff tests/fixtures/file1nested.yml tests/fixtures/file2nested.json --format plain
 
